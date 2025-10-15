@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 平台學習藍圖 | ARK Invest 視角</title>
+
+    <!-- Tabler Icons - 專業的開源圖標庫 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css">
+
+    <!-- Phosphor Icons 備選 (更現代的設計) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* ARK Invest 官方色彩 */
+            --ark-black: #000000;
+            --ark-white: #FFFFFF;
+            --ark-purple: #7B3FF2;
+            --ark-blue: #2563EB;
+            --ark-teal: #14B8A6;
+            --ark-pink: #EC4899;
+            --ark-gray: #6B7280;
+            --ark-light-gray: #F3F4F6;
+            --ark-dark-gray: #1F2937;
+
+            /* 功能色 */
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #3B82F6;
+        }
+
+        body {
+            font-family: -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
+            background: var(--ark-black);
+            color: var(--ark-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ARK 風格導航 */
+        .ark-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--ark-black);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ark-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .ark-logo i {
+            font-size: 32px;
+            color: var(--ark-purple);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--ark-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--ark-purple);
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--ark-purple);
+        }
+
+        /* Hero Section - ARK 風格 */
+        .hero {
+            margin-top: 70px;
+            padding: 80px 2rem;
+            background: linear-gradient(180deg, var(--ark-black) 0%, #0a0a0a 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 20% 50%, rgba(123, 63, 242, 0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(123, 63, 242, 0.1);
+            border: 1px solid var(--ark-purple);
+            border-radius: 20px;
+            color: var(--ark-purple);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(90deg, var(--ark-purple) 0%, var(--ark-blue) 50%, var(--ark-teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--ark-gray);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* 麥肯錫金字塔結構 */
+        .pyramid-section {
+            padding: 80px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-desc {
+            color: var(--ark-gray);
+            font-size: 1.1rem;
+        }
+
+        /* 核心訊息卡片 - 金字塔頂端 */
+        .core-message {
+            background: linear-gradient(135deg, var(--ark-purple) 0%, var(--ark-blue) 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .core-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .core-message-content {
+            position: relative;
+        }
+
+        .core-message h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .core-message p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        /* 支撐論點 - 金字塔中層 */
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .support-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .support-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--ark-purple);
+            transform: translateY(-4px);
+        }
+
+        .support-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ark-purple), var(--ark-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .support-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .support-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .support-desc {
+            color: var(--ark-gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .support-metric {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ark-teal);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* 可展開細節 - 金字塔底層 */
+        .detail-accordion {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .accordion-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+        }
+
+        .accordion-icon {
+            width: 8px;
+            height: 8px;
+            background: var(--ark-teal);
+            border-radius: 50%;
+        }
+
+        .accordion-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .accordion-toggle {
+            transform: rotate(45deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.active {
+            max-height: 1000px;
+        }
+
+        .accordion-body {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--ark-gray);
+            line-height: 1.8;
+        }
+
+        /* VC-Grade 學習路徑時間軸 */
+        .roadmap-container {
+            position: relative;
+            padding: 4rem 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .roadmap-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .roadmap-kpi {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .kpi-item {
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--ark-purple), var(--ark-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .kpi-label {
+            color: var(--ark-gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+            margin-top: 4rem;
+        }
+
+        .roadmap-phase {
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .phase-header {
+            position: relative;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .phase-week {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(123, 63, 242, 0.1);
+            border: 1px solid var(--ark-purple);
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--ark-purple);
+            margin-bottom: 1rem;
+        }
+
+        .phase-milestone {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            background: var(--ark-black);
+            border: 3px solid var(--ark-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .phase-milestone i {
+            font-size: 24px;
+            color: var(--ark-purple);
+            transition: all 0.3s ease;
+        }
+
+        .phase-milestone:hover {
+            background: var(--ark-purple);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(123, 63, 242, 0.5);
+        }
+
+        .phase-milestone:hover i {
+            color: white;
+        }
+
+        .phase-milestone::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--ark-purple), var(--ark-blue));
+            transform: translateY(-50%);
+        }
+
+        .roadmap-phase:last-child .phase-milestone::after {
+            display: none;
+        }
+
+        .phase-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-subtitle {
+            color: var(--ark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .phase-content {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            min-height: 320px;
+        }
+
+        .phase-content:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(123, 63, 242, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(123, 63, 242, 0.1);
+        }
+
+        .phase-tasks {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .phase-task {
+            padding: 0.5rem 0;
+            color: var(--ark-gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .phase-task i {
+            font-size: 16px;
+            color: var(--ark-teal);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .phase-task:hover {
+            color: white;
+        }
+
+        .phase-metrics {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .phase-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .metric-name {
+            color: var(--ark-gray);
+            font-size: 0.85rem;
+        }
+
+        .metric-value {
+            color: var(--ark-purple);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .phase-progress {
+            margin-top: 1rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-label {
+            font-size: 0.85rem;
+            color: var(--ark-gray);
+        }
+
+        .progress-percentage {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ark-purple);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ark-purple), var(--ark-blue));
+            border-radius: 3px;
+            transition: width 2s ease;
+        }
+
+        /* Phase status colors */
+        .phase-1 .phase-milestone {
+            border-color: var(--ark-purple);
+        }
+
+        .phase-2 .phase-milestone {
+            border-color: var(--ark-blue);
+        }
+
+        .phase-3 .phase-milestone {
+            border-color: var(--ark-teal);
+        }
+
+        .phase-4 .phase-milestone {
+            border-color: var(--ark-pink);
+        }
+
+        .phase-5 .phase-milestone {
+            border-color: #F59E0B;
+        }
+
+        .phase-1 .phase-week {
+            background: rgba(123, 63, 242, 0.1);
+            border-color: var(--ark-purple);
+            color: var(--ark-purple);
+        }
+
+        .phase-2 .phase-week {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--ark-blue);
+            color: var(--ark-blue);
+        }
+
+        .phase-3 .phase-week {
+            background: rgba(20, 184, 166, 0.1);
+            border-color: var(--ark-teal);
+            color: var(--ark-teal);
+        }
+
+        .phase-4 .phase-week {
+            background: rgba(236, 72, 153, 0.1);
+            border-color: var(--ark-pink);
+            color: var(--ark-pink);
+        }
+
+        .phase-5 .phase-week {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: #F59E0B;
+            color: #F59E0B;
+        }
+
+        .roadmap-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-label {
+            color: var(--ark-gray);
+            font-size: 0.9rem;
+        }
+
+        /* 技能矩陣 */
+        .skill-matrix {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            text-align: center;
+        }
+
+        .skill-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .skill-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .skill-circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 8;
+        }
+
+        .skill-circle-progress {
+            fill: none;
+            stroke: var(--ark-purple);
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .skill-percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-desc {
+            color: var(--ark-gray);
+            font-size: 0.9rem;
+        }
+
+        /* 專案列表卡片 */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ark-purple), var(--ark-blue));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-number {
+            width: 32px;
+            height: 32px;
+            background: var(--ark-purple);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .project-title {
+            flex: 1;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .project-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(123, 63, 242, 0.1);
+            border: 1px solid rgba(123, 63, 242, 0.3);
+            border-radius: 16px;
+            font-size: 0.8rem;
+            color: var(--ark-purple);
+            font-weight: 500;
+        }
+
+        .project-priority {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .priority-p0 {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+        }
+
+        .priority-p1 {
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+        }
+
+        .priority-p2 {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
+        }
+
+        /* 行動呼籲區 */
+        .cta-section {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, rgba(123, 63, 242, 0.1), rgba(37, 99, 235, 0.1));
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-desc {
+            font-size: 1.2rem;
+            color: var(--ark-gray);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-primary {
+            background: var(--ark-purple);
+            color: var(--ark-white);
+        }
+
+        .btn-primary:hover {
+            background: #6932e0;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--ark-white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--ark-purple);
+            color: var(--ark-purple);
+        }
+
+        /* 統計數據展示 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--ark-purple), var(--ark-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--ark-gray);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* 標籤系統 */
+        .tag-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-tech {
+            background: rgba(123, 63, 242, 0.1);
+            color: var(--ark-purple);
+            border: 1px solid rgba(123, 63, 242, 0.2);
+        }
+
+        .tag-skill {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--ark-blue);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .tag-status {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 1200px) {
+            .roadmap-timeline {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .phase-milestone::after {
+                display: none;
+            }
+
+            .roadmap-phase {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .roadmap-kpi {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap-legend {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* 動畫效果 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* 滾動條樣式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--ark-black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ark-purple);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6932e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- ARK 風格導航 -->
+    <nav class="ark-nav">
+        <div class="nav-container">
+            <div class="ark-logo">
+                <i class="ti ti-rocket"></i>
+                <span>AI PLATFORM 2025</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#purpose" class="active">目的</a></li>
+                <li><a href="#skills">核心技能</a></li>
+                <li><a href="#projects">專案列表</a></li>
+                <li><a href="#roadmap">學習路徑</a></li>
+                <li><a href="#action">開始行動</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">讀書會學習藍圖</div>
+            <h1>
+                <span class="hero-gradient">AI 能力樂高工廠</span><br>
+                12週掌握未來技術
+            </h1>
+            <p class="hero-subtitle">
+                透過15個實戰專案，建立四大核心AI能力平台<br>
+                從零開始，用SDD實現10倍速開發，成為AI時代的建築師
+            </p>
+        </div>
+    </section>
+
+    <!-- 核心統計 -->
+    <section class="pyramid-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">15</div>
+                <div class="stat-label">實戰專案</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">核心平台</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12x</div>
+                <div class="stat-label">開發加速</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">90%</div>
+                <div class="stat-label">成本降低</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 目的 - 麥肯錫金字塔頂端 -->
+    <section class="pyramid-section" id="purpose">
+        <div class="section-header">
+            <h2 class="section-title">為什麼要學這個？</h2>
+            <p class="section-desc">McKinsey Pyramid Principle - 核心論點</p>
+        </div>
+
+        <div class="core-message">
+            <div class="core-message-content">
+                <h2>核心論點：建立 AI 時代的複利能力</h2>
+                <p>不是學習15個獨立技術，而是建立一個自我進化的能力系統</p>
+            </div>
+        </div>
+
+        <div class="support-grid">
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="ti ti-target-arrow"></i>
+                </div>
+                <h3 class="support-title">目的1：掌握 AI 開發 AI</h3>
+                <p class="support-desc">學會用 SDD (Software-Defined Development) 讓 AI 幫你寫程式，實現開發速度 10 倍提升</p>
+                <div class="support-metric">
+                    <i class="ti ti-bolt" style="font-size: 1rem;"></i>
+                    <span>3個月 → 1週</span>
+                </div>
+            </div>
+
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="ti ti-refresh"></i>
+                </div>
+                <h3 class="support-title">目的2：建立複用思維</h3>
+                <p class="support-desc">每個專案都是積木，70%以上程式碼可複用，邊際成本趨近於零</p>
+                <div class="support-metric">
+                    <i class="ti ti-chart-bar" style="font-size: 1rem;"></i>
+                    <span>複用率 >70%</span>
+                </div>
+            </div>
+
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="ti ti-rocket"></i>
+                </div>
+                <h3 class="support-title">目的3：創造商業價值</h3>
+                <p class="support-desc">不只是技術練習，每個專案都可商業化，從學習到創業的完整路徑</p>
+                <div class="support-metric">
+                    <i class="ti ti-currency-dollar" style="font-size: 1rem;"></i>
+                    <span>TAM $750B</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 可展開的詳細說明 -->
+        <div class="detail-accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <span class="accordion-icon"></span>
+                    <span>詳細說明：為什麼是這15個專案？</span>
+                </div>
+                <span class="accordion-toggle">+</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-body">
+                    <p>這15個專案經過精心設計，涵蓋五大垂直領域：</p>
+                    <ul style="margin: 1rem 0; line-height: 2;">
+                        <li><i class="ti ti-school" style="color: var(--ark-purple);"></i> <strong>教育智能體</strong>：個人開課網站、考古題系統、Leetcode研討會</li>
+                        <li><i class="ti ti-chart-line" style="color: var(--ark-blue);"></i> <strong>金融智能終端</strong>：股票操盤資訊系統、Alpha因子引擎</li>
+                        <li><i class="ti ti-code" style="color: var(--ark-teal);"></i> <strong>開發者平台</strong>：AI網頁複製、接案平台、插件市場</li>
+                        <li><i class="ti ti-video" style="color: var(--ark-pink);"></i> <strong>視覺生成管線</strong>：影像追蹤、AI動畫生成</li>
+                        <li><i class="ti ti-message-circle" style="color: var(--ark-purple);"></i> <strong>對話智能</strong>：AI聊天機器人、需求架構VLM RAG</li>
+                    </ul>
+                    <p>每個專案都會用到四大核心平台能力，形成能力複用飛輪。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <span class="accordion-icon"></span>
+                    <span>投資報酬率分析</span>
+                </div>
+                <span class="accordion-toggle">+</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-body">
+                    <p><strong>學習投資</strong>：12週，每週10小時 = 120小時</p>
+                    <p><strong>預期回報</strong>：</p>
+                    <ul style="margin: 1rem 0; line-height: 2;">
+                        <li><i class="ti ti-briefcase" style="color: var(--ark-purple);"></i> 薪資提升：AI工程師平均年薪 $80K-150K</li>
+                        <li><i class="ti ti-bolt" style="color: var(--ark-blue);"></i> 工作效率：開發速度提升10倍</li>
+                        <li><i class="ti ti-rocket" style="color: var(--ark-teal);"></i> 創業機會：可直接商業化的15個產品</li>
+                        <li><i class="ti ti-world" style="color: var(--ark-pink);"></i> 網路效應：加入全球AI開發者社群</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心技能 -->
+    <section class="pyramid-section" id="skills">
+        <div class="section-header">
+            <h2 class="section-title">四大核心技能平台</h2>
+            <p class="section-desc">你將掌握的核心能力</p>
+        </div>
+
+        <div class="skill-matrix">
+            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--ark-purple);">技能成長路徑</h3>
+
+            <div class="skill-grid">
+                <div class="skill-item">
+                    <div class="skill-circle">
+                        <svg width="120" height="120">
+                            <circle cx="60" cy="60" r="50" class="skill-circle-bg"/>
+                            <circle cx="60" cy="60" r="50" class="skill-circle-progress"
+                                    stroke-dasharray="314"
+                                    stroke-dashoffset="47"/>
+                        </svg>
+                        <div class="skill-percentage">85%</div>
+                    </div>
+                    <div class="skill-name">SDD AI Coding</div>
+                    <div class="skill-desc">AI自動化開發</div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-circle">
+                        <svg width="120" height="120">
+                            <circle cx="60" cy="60" r="50" class="skill-circle-bg"/>
+                            <circle cx="60" cy="60" r="50" class="skill-circle-progress"
+                                    stroke-dasharray="314"
+                                    stroke-dashoffset="63"/>
+                        </svg>
+                        <div class="skill-percentage">80%</div>
+                    </div>
+                    <div class="skill-name">Agentic Workflow</div>
+                    <div class="skill-desc">智能體編排</div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-circle">
+                        <svg width="120" height="120">
+                            <circle cx="60" cy="60" r="50" class="skill-circle-bg"/>
+                            <circle cx="60" cy="60" r="50" class="skill-circle-progress"
+                                    stroke-dasharray="314"
+                                    stroke-dashoffset="94"/>
+                        </svg>
+                        <div class="skill-percentage">70%</div>
+                    </div>
+                    <div class="skill-name">RAG/VLM</div>
+                    <div class="skill-desc">知識檢索增強</div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-circle">
+                        <svg width="120" height="120">
+                            <circle cx="60" cy="60" r="50" class="skill-circle-bg"/>
+                            <circle cx="60" cy="60" r="50" class="skill-circle-progress"
+                                    stroke-dasharray="314"
+                                    stroke-dashoffset="126"/>
+                        </svg>
+                        <div class="skill-percentage">60%</div>
+                    </div>
+                    <div class="skill-name">MLOps</div>
+                    <div class="skill-desc">模型運維管理</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-grid">
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="ti ti-bolt"></i>
+                </div>
+                <h3 class="support-title">SDD AI Coding</h3>
+                <p class="support-desc">終極乘數效應 - 用AI開發AI工具</p>
+                <div class="tag-container">
+                    <span class="tag tag-tech">程式碼生成</span>
+                    <span class="tag tag-tech">自動測試</span>
+                    <span class="tag tag-tech">CI/CD自動化</span>
+                    <span class="tag tag-skill">Python</span>
+                    <span class="tag tag-skill">JavaScript</span>
+                </div>
+            </div>
+
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="ti ti-robot"></i>
+                </div>
+                <h3 class="support-title">Agentic Orchestrator</h3>
+                <p class="support-desc">任務編排引擎 - 複雜工作流自動化</p>
+                <div class="tag-container">
+                    <span class="tag tag-tech">LangChain</span>
+                    <span class="tag tag-tech">AutoGPT</span>
+                    <span class="tag tag-tech">工具鏈整合</span>
+                    <span class="tag tag-skill">任務規劃</span>
+                    <span class="tag tag-skill">錯誤處理</span>
+                </div>
+            </div>
+
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="ti ti-books"></i>
+                </div>
+                <h3 class="support-title">Knowledge Hub (RAG/VLM)</h3>
+                <p class="support-desc">知識中控系統 - 智能檢索與理解</p>
+                <div class="tag-container">
+                    <span class="tag tag-tech">向量資料庫</span>
+                    <span class="tag tag-tech">Embedding</span>
+                    <span class="tag tag-tech">多模態理解</span>
+                    <span class="tag tag-skill">Qdrant</span>
+                    <span class="tag tag-skill">ChromaDB</span>
+                </div>
+            </div>
+
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="ti ti-settings-automation"></i>
+                </div>
+                <h3 class="support-title">MLOps Pipeline</h3>
+                <p class="support-desc">模型運維 - 從實驗到生產部署</p>
+                <div class="tag-container">
+                    <span class="tag tag-tech">K8s</span>
+                    <span class="tag tag-tech">ClearML</span>
+                    <span class="tag tag-tech">模型監控</span>
+                    <span class="tag tag-skill">Docker</span>
+                    <span class="tag tag-skill">GitOps</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 專案列表 -->
+    <section class="pyramid-section" id="projects">
+        <div class="section-header">
+            <h2 class="section-title">15個實戰專案</h2>
+            <p class="section-desc">按優先級排序的學習專案</p>
+        </div>
+
+        <!-- P0 優先級 -->
+        <h3 style="color: var(--ark-purple); margin: 2rem 0; display: flex; align-items: center; gap: 1rem;">
+            <i class="ti ti-trophy-filled" style="font-size: 1.5rem;"></i>
+            P0 - 必須優先完成
+        </h3>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-number">0</div>
+                    <div class="project-title">SDD AI Coding Engine</div>
+                </div>
+                <p style="color: var(--ark-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                    建立「造積木的機器」- 用AI開發AI工具
+                </p>
+                <div class="project-skills">
+                    <span class="skill-tag">程式碼生成</span>
+                    <span class="skill-tag">AST解析</span>
+                    <span class="skill-tag">自動部署</span>
+                </div>
+                <span class="project-priority priority-p0">P0 - 最優先</span>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-number">15</div>
+                    <div class="project-title">Agentic Workflow</div>
+                </div>
+                <p style="color: var(--ark-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                    平台級任務編排系統
+                </p>
+                <div class="project-skills">
+                    <span class="skill-tag">LangGraph</span>
+                    <span class="skill-tag">工具鏈</span>
+                    <span class="skill-tag">狀態管理</span>
+                </div>
+                <span class="project-priority priority-p0">P0 - 核心積木</span>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-number">6</div>
+                    <div class="project-title">個人開課網站</div>
+                </div>
+                <p style="color: var(--ark-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                    類Teachify平台 - 首個商業化驗證
+                </p>
+                <div class="project-skills">
+                    <span class="skill-tag">全端開發</span>
+                    <span class="skill-tag">金流整合</span>
+                    <span class="skill-tag">影片串流</span>
+                </div>
+                <span class="project-priority priority-p0">P0 - 商業驗證</span>
+            </div>
+        </div>
+
+        <!-- P1 優先級 -->
+        <h3 style="color: var(--ark-blue); margin: 3rem 0 2rem; display: flex; align-items: center; gap: 1rem;">
+            <i class="ti ti-medal-2" style="font-size: 1.5rem;"></i>
+            P1 - 核心專案
+        </h3>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-number">8</div>
+                    <div class="project-title">考古題網站</div>
+                </div>
+                <p style="color: var(--ark-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                    AI出題系統 + IRT難度估計
+                </p>
+                <div class="project-skills">
+                    <span class="skill-tag">RAG</span>
+                    <span class="skill-tag">IRT模型</span>
+                    <span class="skill-tag">題庫管理</span>
+                </div>
+                <span class="project-priority priority-p1">P1 - 教育飛輪</span>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-number">13</div>
+                    <div class="project-title">股票操盤系統</div>
+                </div>
+                <p style="color: var(--ark-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                    金融事件抽取 + Alpha因子
+                </p>
+                <div class="project-skills">
+                    <span class="skill-tag">事件抽取</span>
+                    <span class="skill-tag">回測引擎</span>
+                    <span class="skill-tag">策略優化</span>
+                </div>
+                <span class="project-priority priority-p1">P1 - 高毛利</span>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-number">7</div>
+                    <div class="project-title">插件市場</div>
+                </div>
+                <p style="color: var(--ark-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                    雙邊市場 - 生態系統鎖定
+                </p>
+                <div class="project-skills">
+                    <span class="skill-tag">SDK開發</span>
+                    <span class="skill-tag">Registry</span>
+                    <span class="skill-tag">簽章驗證</span>
+                </div>
+                <span class="project-priority priority-p1">P1 - 生態鎖定</span>
+            </div>
+        </div>
+
+        <!-- P2 優先級 -->
+        <h3 style="color: var(--ark-teal); margin: 3rem 0 2rem; display: flex; align-items: center; gap: 1rem;">
+            <i class="ti ti-award" style="font-size: 1.5rem;"></i>
+            P2 - 進階專案
+        </h3>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-number">9</div>
+                    <div class="project-title">SA需求架構 VLM RAG</div>
+                </div>
+                <p style="color: var(--ark-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                    視覺語言模型 + 架構理解
+                </p>
+                <div class="project-skills">
+                    <span class="skill-tag">VLM</span>
+                    <span class="skill-tag">多模態</span>
+                    <span class="skill-tag">架構圖解析</span>
+                </div>
+                <span class="project-priority priority-p2">P2 - 知識中控</span>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-number">2</div>
+                    <div class="project-title">CI/CD + K8s</div>
+                </div>
+                <p style="color: var(--ark-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                    MLOps基礎設施
+                </p>
+                <div class="project-skills">
+                    <span class="skill-tag">GitOps</span>
+                    <span class="skill-tag">Argo</span>
+                    <span class="skill-tag">監控</span>
+                </div>
+                <span class="project-priority priority-p2">P2 - 基礎建設</span>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-number">10</div>
+                    <div class="project-title">AI女友聊天機器人</div>
+                </div>
+                <p style="color: var(--ark-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                    長期記憶 + Persona引擎
+                </p>
+                <div class="project-skills">
+                    <span class="skill-tag">對話管理</span>
+                    <span class="skill-tag">記憶系統</span>
+                    <span class="skill-tag">情感計算</span>
+                </div>
+                <span class="project-priority priority-p2">P2 - 對話智能</span>
+            </div>
+        </div>
+
+        <div class="detail-accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <span class="accordion-icon"></span>
+                    <span>查看其他專案（P3）</span>
+                </div>
+                <span class="accordion-toggle">+</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-body">
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-number">1</div>
+                                <div class="project-title">AI網頁複製</div>
+                            </div>
+                            <div class="project-skills">
+                                <span class="skill-tag">DOM解析</span>
+                                <span class="skill-tag">LLM生成</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-number">3</div>
+                                <div class="project-title">ClearML MLOps</div>
+                            </div>
+                            <div class="project-skills">
+                                <span class="skill-tag">實驗追蹤</span>
+                                <span class="skill-tag">模型管理</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-number">4</div>
+                                <div class="project-title">接案平台</div>
+                            </div>
+                            <div class="project-skills">
+                                <span class="skill-tag">任務流</span>
+                                <span class="skill-tag">支付整合</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-number">5</div>
+                                <div class="project-title">個人形象網站</div>
+                            </div>
+                            <div class="project-skills">
+                                <span class="skill-tag">作品集</span>
+                                <span class="skill-tag">SEO優化</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-number">11</div>
+                                <div class="project-title">影像追蹤</div>
+                            </div>
+                            <div class="project-skills">
+                                <span class="skill-tag">CV追蹤</span>
+                                <span class="skill-tag">邊緣運算</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-number">12</div>
+                                <div class="project-title">Leetcode研討會</div>
+                            </div>
+                            <div class="project-skills">
+                                <span class="skill-tag">多Agent</span>
+                                <span class="skill-tag">評測系統</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-number">14</div>
+                                <div class="project-title">AI動畫</div>
+                            </div>
+                            <div class="project-skills">
+                                <span class="skill-tag">Text2Video</span>
+                                <span class="skill-tag">AnimateDiff</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VC-Grade 學習路徑 -->
+    <section class="pyramid-section" id="roadmap">
+        <div class="section-header">
+            <h2 class="section-title">12週學習路徑</h2>
+            <p class="section-desc">Investment-Ready Development Roadmap</p>
+        </div>
+
+        <div class="roadmap-container">
+            <!-- KPI Metrics Dashboard -->
+            <div class="roadmap-kpi">
+                <div class="kpi-item">
+                    <div class="kpi-value">12</div>
+                    <div class="kpi-label">Total Weeks</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-value">5</div>
+                    <div class="kpi-label">Milestones</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-value">120</div>
+                    <div class="kpi-label">Study Hours</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-value">10x</div>
+                    <div class="kpi-label">ROI Expected</div>
+                </div>
+            </div>
+
+            <!-- Timeline Grid -->
+            <div class="roadmap-timeline">
+                <!-- Phase 1: Foundation -->
+                <div class="roadmap-phase phase-1">
+                    <div class="phase-header">
+                        <div class="phase-week">Week 1-2</div>
+                        <div class="phase-milestone">
+                            <i class="ti ti-rocket"></i>
+                        </div>
+                        <h3 class="phase-title">Foundation</h3>
+                        <p class="phase-subtitle">SDD AI Coding Engine</p>
+                    </div>
+                    <div class="phase-content">
+                        <ul class="phase-tasks">
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>需求解析器開發</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>前端生成器 (React/Vue)</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>後端生成器 (FastAPI)</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>Todo App 驗證測試</span>
+                            </li>
+                        </ul>
+                        <div class="phase-metrics">
+                            <div class="phase-metric">
+                                <span class="metric-name">程式碼生成準確率</span>
+                                <span class="metric-value">85%</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="metric-name">開發加速</span>
+                                <span class="metric-value">3x</span>
+                            </div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="progress-header">
+                                <span class="progress-label">完成進度</span>
+                                <span class="progress-percentage">20%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 20%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Agentic -->
+                <div class="roadmap-phase phase-2">
+                    <div class="phase-header">
+                        <div class="phase-week">Week 3-4</div>
+                        <div class="phase-milestone">
+                            <i class="ti ti-robot"></i>
+                        </div>
+                        <h3 class="phase-title">Orchestration</h3>
+                        <p class="phase-subtitle">Agentic Workflow</p>
+                    </div>
+                    <div class="phase-content">
+                        <ul class="phase-tasks">
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>任務 Schema 定義</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>LLM 規劃器實作</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>工具鏈整合</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>重試機制優化</span>
+                            </li>
+                        </ul>
+                        <div class="phase-metrics">
+                            <div class="phase-metric">
+                                <span class="metric-name">任務成功率</span>
+                                <span class="metric-value">90%</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="metric-name">平均執行步數</span>
+                                <span class="metric-value"><7</span>
+                            </div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="progress-header">
+                                <span class="progress-label">完成進度</span>
+                                <span class="progress-percentage">40%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3: Knowledge -->
+                <div class="roadmap-phase phase-3">
+                    <div class="phase-header">
+                        <div class="phase-week">Week 5-6</div>
+                        <div class="phase-milestone">
+                            <i class="ti ti-books"></i>
+                        </div>
+                        <h3 class="phase-title">Knowledge</h3>
+                        <p class="phase-subtitle">RAG/VLM System</p>
+                    </div>
+                    <div class="phase-content">
+                        <ul class="phase-tasks">
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>Chunker 實作</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>向量索引建立</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>重排器最佳化</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>Qdrant 部署</span>
+                            </li>
+                        </ul>
+                        <div class="phase-metrics">
+                            <div class="phase-metric">
+                                <span class="metric-name">檢索準確率</span>
+                                <span class="metric-value">95%</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="metric-name">回應延遲</span>
+                                <span class="metric-value"><200ms</span>
+                            </div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="progress-header">
+                                <span class="progress-label">完成進度</span>
+                                <span class="progress-percentage">60%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4: MLOps -->
+                <div class="roadmap-phase phase-4">
+                    <div class="phase-header">
+                        <div class="phase-week">Week 7-8</div>
+                        <div class="phase-milestone">
+                            <i class="ti ti-settings-automation"></i>
+                        </div>
+                        <h3 class="phase-title">Operations</h3>
+                        <p class="phase-subtitle">MLOps Pipeline</p>
+                    </div>
+                    <div class="phase-content">
+                        <ul class="phase-tasks">
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>訓練腳本自動化</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>CI/CD 管線設置</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>ClearML 整合</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>漂移監控系統</span>
+                            </li>
+                        </ul>
+                        <div class="phase-metrics">
+                            <div class="phase-metric">
+                                <span class="metric-name">部署頻率</span>
+                                <span class="metric-value">10+/天</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="metric-name">MTTR</span>
+                                <span class="metric-value"><4hr</span>
+                            </div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="progress-header">
+                                <span class="progress-label">完成進度</span>
+                                <span class="progress-percentage">80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 5: Product -->
+                <div class="roadmap-phase phase-5">
+                    <div class="phase-header">
+                        <div class="phase-week">Week 9-12</div>
+                        <div class="phase-milestone">
+                            <i class="ti ti-building-store"></i>
+                        </div>
+                        <h3 class="phase-title">Launch</h3>
+                        <p class="phase-subtitle">EdTech Platform</p>
+                    </div>
+                    <div class="phase-content">
+                        <ul class="phase-tasks">
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>全端架構生成</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>課程管理系統</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>金流整合</span>
+                            </li>
+                            <li class="phase-task">
+                                <i class="ti ti-check"></i>
+                                <span>Beta 測試上線</span>
+                            </li>
+                        </ul>
+                        <div class="phase-metrics">
+                            <div class="phase-metric">
+                                <span class="metric-name">GMV 目標</span>
+                                <span class="metric-value">$10K/月</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="metric-name">講師入駐</span>
+                                <span class="metric-value">20+</span>
+                            </div>
+                        </div>
+                        <div class="phase-progress">
+                            <div class="progress-header">
+                                <span class="progress-label">完成進度</span>
+                                <span class="progress-percentage">100%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="roadmap-legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: var(--ark-purple);"></div>
+                    <span class="legend-label">基礎建設</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: var(--ark-blue);"></div>
+                    <span class="legend-label">核心能力</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: var(--ark-teal);"></div>
+                    <span class="legend-label">知識系統</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: var(--ark-pink);"></div>
+                    <span class="legend-label">運維管理</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #F59E0B;"></div>
+                    <span class="legend-label">產品上線</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 行動呼籲 -->
+    <section class="cta-section" id="action">
+        <div class="cta-content">
+            <h2 class="cta-title">準備好開始了嗎？</h2>
+            <p class="cta-desc">
+                12週後，你將擁有AI時代最稀缺的能力<br>
+                不只是學習技術，而是建立一個自我進化的能力系統
+            </p>
+
+            <div class="stats-grid" style="max-width: 800px; margin: 3rem auto;">
+                <div class="stat-card">
+                    <div class="stat-number">120</div>
+                    <div class="stat-label">學習小時</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">實戰專案</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">核心平台</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10x</div>
+                    <div class="stat-label">效率提升</div>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">立即加入讀書會</a>
+                <a href="#" class="btn btn-secondary">下載完整大綱</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 手風琴展開/收合
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
+        // 導航滾動效果
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-menu a');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // 平滑滾動
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 技能圓圈動畫
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const circleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const circles = entry.target.querySelectorAll('.skill-circle-progress');
+                    circles.forEach(circle => {
+                        const offset = circle.getAttribute('stroke-dashoffset');
+                        circle.style.strokeDashoffset = offset;
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const skillMatrix = document.querySelector('.skill-matrix');
+        if (skillMatrix) {
+            circleObserver.observe(skillMatrix);
+        }
+
+        // 淡入動畫
+        const fadeElements = document.querySelectorAll('.support-card, .project-card, .roadmap-item');
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+    </script>
+</body>
+</html>
