@@ -401,6 +401,50 @@
             margin-top: 4rem;
         }
 
+        /* 時間軸主線 */
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            top: 95px;
+            left: 5%;
+            right: 5%;
+            height: 3px;
+            background: linear-gradient(90deg,
+                var(--ark-purple) 0%,
+                var(--ark-blue) 25%,
+                var(--ark-teal) 50%,
+                var(--ark-pink) 75%,
+                #F59E0B 100%);
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        /* 動態進度線 */
+        .roadmap-timeline::after {
+            content: '';
+            position: absolute;
+            top: 95px;
+            left: 5%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                var(--ark-purple) 0%,
+                var(--ark-blue) 25%,
+                var(--ark-teal) 50%,
+                var(--ark-pink) 75%,
+                #F59E0B 100%);
+            z-index: 2;
+            animation: progressLine 3s ease-out forwards;
+        }
+
+        @keyframes progressLine {
+            to {
+                width: 90%;
+            }
+        }
+
+        /* 移除單一脈動動畫，改為個別定義 */
+
         .roadmap-phase {
             position: relative;
             padding: 0 1rem;
@@ -437,6 +481,7 @@
             justify-content: center;
             transition: all 0.3s ease;
             cursor: pointer;
+            z-index: 10;
         }
 
         .phase-milestone i {
@@ -446,28 +491,52 @@
         }
 
         .phase-milestone:hover {
+            transform: scale(1.15);
+        }
+
+        .phase-1 .phase-milestone:hover {
             background: var(--ark-purple);
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(123, 63, 242, 0.5);
+            box-shadow: 0 0 40px rgba(123, 63, 242, 0.6);
+        }
+
+        .phase-2 .phase-milestone:hover {
+            background: var(--ark-blue);
+            box-shadow: 0 0 40px rgba(37, 99, 235, 0.6);
+        }
+
+        .phase-3 .phase-milestone:hover {
+            background: var(--ark-teal);
+            box-shadow: 0 0 40px rgba(20, 184, 166, 0.6);
+        }
+
+        .phase-4 .phase-milestone:hover {
+            background: var(--ark-pink);
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.6);
+        }
+
+        .phase-5 .phase-milestone:hover {
+            background: #F59E0B;
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.6);
         }
 
         .phase-milestone:hover i {
-            color: white;
+            color: white !important;
         }
 
-        .phase-milestone::after {
+        /* 移除原本的連接線 */
+        /* .phase-milestone::after 已移除 */
+
+        /* 里程碑下方的垂直連接線 */
+        .phase-milestone::before {
             content: '';
             position: absolute;
-            top: 50%;
-            right: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--ark-purple), var(--ark-blue));
-            transform: translateY(-50%);
-        }
-
-        .roadmap-phase:last-child .phase-milestone::after {
-            display: none;
+            top: 100%;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(180deg, var(--ark-purple), transparent);
+            transform: translateX(-50%);
+            opacity: 0.5;
         }
 
         .phase-title {
@@ -588,22 +657,67 @@
         /* Phase status colors */
         .phase-1 .phase-milestone {
             border-color: var(--ark-purple);
+            box-shadow: 0 0 20px rgba(123, 63, 242, 0.2);
+        }
+
+        .phase-1 .phase-milestone i {
+            color: var(--ark-purple);
+        }
+
+        .phase-1 .phase-milestone::before {
+            background: linear-gradient(180deg, var(--ark-purple), transparent);
         }
 
         .phase-2 .phase-milestone {
             border-color: var(--ark-blue);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .phase-2 .phase-milestone i {
+            color: var(--ark-blue);
+        }
+
+        .phase-2 .phase-milestone::before {
+            background: linear-gradient(180deg, var(--ark-blue), transparent);
         }
 
         .phase-3 .phase-milestone {
             border-color: var(--ark-teal);
+            box-shadow: 0 0 20px rgba(20, 184, 166, 0.2);
+        }
+
+        .phase-3 .phase-milestone i {
+            color: var(--ark-teal);
+        }
+
+        .phase-3 .phase-milestone::before {
+            background: linear-gradient(180deg, var(--ark-teal), transparent);
         }
 
         .phase-4 .phase-milestone {
             border-color: var(--ark-pink);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.2);
+        }
+
+        .phase-4 .phase-milestone i {
+            color: var(--ark-pink);
+        }
+
+        .phase-4 .phase-milestone::before {
+            background: linear-gradient(180deg, var(--ark-pink), transparent);
         }
 
         .phase-5 .phase-milestone {
             border-color: #F59E0B;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+        }
+
+        .phase-5 .phase-milestone i {
+            color: #F59E0B;
+        }
+
+        .phase-5 .phase-milestone::before {
+            background: linear-gradient(180deg, #F59E0B, transparent);
         }
 
         .phase-1 .phase-week {
@@ -1063,7 +1177,7 @@
         <div class="hero-content">
             <div class="hero-badge">讀書會學習藍圖</div>
             <h1>
-                <span class="hero-gradient">AI 能力樂高工廠</span><br>
+                <span class="hero-gradient">AI 樂高夢工廠</span><br>
                 12週掌握未來技術
             </h1>
             <p class="hero-subtitle">
